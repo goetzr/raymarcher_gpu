@@ -1,0 +1,29 @@
+# Xcode User Data & Settings
+xcuserdata/
+*.xcworkspace
+*.xcscmblueprint
+*.xccheckout
+*.perspectivev3
+*.pbxuser
+*.mode1v3
+*.mode2v3
+
+# Build & Derived Data
+build/
+DerivedData/
+*.dSYM
+*.dSYM.zip
+*.ipa
+*.app.zip
+
+# Metal Compiler Output
+*.air
+*.metallib
+
+# C++ build artifacts
+*.o
+*.a
+*.dylib
+
+# System files
+.DS_Store
