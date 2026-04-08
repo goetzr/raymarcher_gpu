@@ -10,10 +10,22 @@
 		E83EA5A72F847FE200E59DDB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E83EA5A62F847FE200E59DDB /* QuartzCore.framework */; };
 		E83EA5A92F847FED00E59DDB /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E83EA5A82F847FED00E59DDB /* Metal.framework */; };
 		E83EA5B32F84873600E59DDB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E83EA5B22F84873600E59DDB /* Foundation.framework */; };
+		E83EA5C92F87037300E59DDB /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E83EA5A82F847FED00E59DDB /* Metal.framework */; };
+		E83EA5CA2F87038100E59DDB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E83EA5A62F847FE200E59DDB /* QuartzCore.framework */; };
+		E83EA5CB2F87039200E59DDB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E83EA5B22F84873600E59DDB /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		E83EA5952F83351600E59DDB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		E83EA5BB2F8702B100E59DDB /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -32,12 +44,18 @@
 		E83EA5A82F847FED00E59DDB /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		E83EA5AF2F84816500E59DDB /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		E83EA5B22F84873600E59DDB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E83EA5BD2F8702B100E59DDB /* add_arrays */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = add_arrays; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E83EA5992F83351600E59DDB /* raymarcher_gpu */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = raymarcher_gpu;
+			sourceTree = "<group>";
+		};
+		E83EA5BE2F8702B100E59DDB /* add_arrays */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = add_arrays;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -53,6 +71,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E83EA5BA2F8702B100E59DDB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E83EA5CB2F87039200E59DDB /* Foundation.framework in Frameworks */,
+				E83EA5CA2F87038100E59DDB /* QuartzCore.framework in Frameworks */,
+				E83EA5C92F87037300E59DDB /* Metal.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -60,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				E83EA5992F83351600E59DDB /* raymarcher_gpu */,
+				E83EA5BE2F8702B100E59DDB /* add_arrays */,
 				E83EA5A12F847FC700E59DDB /* Frameworks */,
 				E83EA5982F83351600E59DDB /* Products */,
 			);
@@ -69,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				E83EA5972F83351600E59DDB /* raymarcher_gpu */,
+				E83EA5BD2F8702B100E59DDB /* add_arrays */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -111,6 +141,28 @@
 			productReference = E83EA5972F83351600E59DDB /* raymarcher_gpu */;
 			productType = "com.apple.product-type.tool";
 		};
+		E83EA5BC2F8702B100E59DDB /* add_arrays */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E83EA5C12F8702B100E59DDB /* Build configuration list for PBXNativeTarget "add_arrays" */;
+			buildPhases = (
+				E83EA5B92F8702B100E59DDB /* Sources */,
+				E83EA5BA2F8702B100E59DDB /* Frameworks */,
+				E83EA5BB2F8702B100E59DDB /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				E83EA5BE2F8702B100E59DDB /* add_arrays */,
+			);
+			name = add_arrays;
+			packageProductDependencies = (
+			);
+			productName = add_arrays;
+			productReference = E83EA5BD2F8702B100E59DDB /* add_arrays */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -121,6 +173,9 @@
 				LastUpgradeCheck = 2640;
 				TargetAttributes = {
 					E83EA5962F83351600E59DDB = {
+						CreatedOnToolsVersion = 26.4;
+					};
+					E83EA5BC2F8702B100E59DDB = {
 						CreatedOnToolsVersion = 26.4;
 					};
 				};
@@ -140,12 +195,20 @@
 			projectRoot = "";
 			targets = (
 				E83EA5962F83351600E59DDB /* raymarcher_gpu */,
+				E83EA5BC2F8702B100E59DDB /* add_arrays */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E83EA5932F83351600E59DDB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E83EA5B92F8702B100E59DDB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -279,6 +342,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XQ75MS283B;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/raymarcher_gpu/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/metal-cpp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -291,6 +356,36 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XQ75MS283B;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/raymarcher_gpu/PrefixHeader.pch";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/metal-cpp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		E83EA5C22F8702B100E59DDB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++23";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XQ75MS283B;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/add_arrays/PrefixHeader.pch";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/metal-cpp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E83EA5C32F8702B100E59DDB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++23";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XQ75MS283B;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/add_arrays/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/metal-cpp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -313,6 +408,15 @@
 			buildConfigurations = (
 				E83EA59F2F83351600E59DDB /* Debug */,
 				E83EA5A02F83351600E59DDB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E83EA5C12F8702B100E59DDB /* Build configuration list for PBXNativeTarget "add_arrays" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E83EA5C22F8702B100E59DDB /* Debug */,
+				E83EA5C32F8702B100E59DDB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
