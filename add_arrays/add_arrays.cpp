@@ -74,5 +74,26 @@ bool add_arrays(int count, const float* inA, const float* inB, float* result) {
         return false;
     }
     
+    compute_encoder->setComputePipelineState(add_func_pso);
+    compute_encoder->setBuffer(bufA, 0, 0);
+    compute_encoder->setBuffer(bufB, 0, 1);
+    compute_encoder->setBuffer(bufRes, 0, 2);
+    
+    auto grid_sz = MTL::Size(count, 1, 1);
+    
+    auto tg_sz = add_func_pso->maxTotalThreadsPerThreadgroup();
+    if (tg_sz > count) {
+        tg_sz = count;
+    }
+    auto thread_grp_sz = MTL::Size(tg_sz, 1, 1);
+    
+    compute_encoder->dispatchThreads(grid_sz, thread_grp_sz);
+    
+    compute_encoder->endEncoding();
+    
+    cmd_buffer->commit();
+    
+    cmd_buffer->waitUntilCompleted();
+    
     return true;
 }
