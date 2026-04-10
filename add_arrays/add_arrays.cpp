@@ -11,7 +11,7 @@
 #include <Metal/Metal.hpp>
 #include <QuartzCore/QuartzCore.hpp>
 
-bool add_arrays(int count, const float* inA, const float* inB, float* result) {
+bool add_arrays(int count, const float* inA, const float* inB, float** result) {
     // Metal creates a MTLDevice for each GPU.
     // If the system has multiple GPUs, Metal chooses one as the default.
     // Get the default GPU.
@@ -151,6 +151,9 @@ bool add_arrays(int count, const float* inA, const float* inB, float* result) {
     
     // Wait until the command buffer is complete.
     cmd_buffer->waitUntilCompleted();
+    
+    // Copy just a pointer to the results into the return argument.
+    *result = static_cast<float*>(bufRes->contents());
     
     return true;
 }

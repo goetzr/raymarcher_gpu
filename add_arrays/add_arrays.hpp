@@ -8,6 +8,6 @@
 #ifndef add_arrays_hpp
 #define add_arrays_hpp
 
-bool add_arrays(int count, const float* inA, const float* inB, float* result);
+bool add_arrays(int count, const float* inA, const float* inB, float** result);
 
 #endif /* add_arrays_hpp */
