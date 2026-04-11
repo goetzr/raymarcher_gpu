@@ -41,7 +41,7 @@ bool add_arrays(int count, const float* inA, const float* inB, float** result) {
     // The function is converted into executable code by creating a pipeline.
     // A pipeline specifies the steps the GPU performs to complete a specific task.
     // In Metal, a pipeline is represented by a pipeline state object.
-    // The "add_arrays" shader function is a compute function, so compute pipeline is created.
+    // The "add_arrays" shader function is a compute function, so a compute pipeline is created.
     // A compute pipeline runs a single compute function.
     // When a pipeline state object is created, the device object finishes compiling the compute function for its specific GPU.
     NS::Error *err = nullptr;
