@@ -6,9 +6,18 @@
 //
 
 #include <metal_stdlib>
+
+#include "shared.h"
+
 using namespace metal;
 
-kernel void raymarch_pixel(int px, int py, const Camera& camera, Fov fov, const Scene& scene, device uint32_t* pixels [[buffer0]])
+kernel void raymarch_pixel(constant int32_t& px [[buffer(0)]],
+                           constant int32_t& py [[buffer(1)]],
+                           constant Camera& camera [[buffer(2)]],
+                           constant Fov& fov [[buffer(3)]],
+                           constant Object* objects [[buffer(4)]],
+                           constant int32_t& num_objs [[buffer(5)]]
+                           device uint32_t* pixels [[buffer0]])
 {
     // A ray that has marched further than this distance is defined to have missed all objects in the scene.
     static constexpr double kMaxDist = 200;

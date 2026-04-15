@@ -20,6 +20,10 @@ private:
     void release() noexcept;
     
 private:
+    constexpr static const char* kRaymarchPixelFuncName = "raymarch_pixel";
+    
     bool init_ok_ = false;
-    NS::SharedPtr<MTL::Device> device_;
+    NS::SharedPtr<MTL::Device> device_{};
+    NS::SharedPtr<MTL::ComputePipelineState> raymarch_px_pso_{};
+    NS::SharedPtr<MTL::CommandQueue> cmd_queue_{};
 };
