@@ -6,10 +6,9 @@
 //
 
 #include <metal_stdlib>
-
-#include "shared.h"
-
 using namespace metal;
+
+#include "camera.hpp"
 
 kernel void raymarch_pixel(constant int32_t& px [[buffer(0)]],
                            constant int32_t& py [[buffer(1)]],
