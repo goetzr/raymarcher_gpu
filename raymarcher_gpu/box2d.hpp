@@ -1,5 +1,5 @@
 //
-//  cube.hpp
+//  box2d.hpp
 //  raymarcher_gpu
 //
 //  Created by Russ Goetz on 4/15/26.
@@ -9,19 +9,17 @@
 
 #include "vec3.hpp"
 #include "common.hpp"
-#include "mat3.hpp"
 
-class Cube {
+class Box2D  {
 public:
-    Cube(Vec3 center, FLOAT side_len, EulerAngles rotation) noexcept;
+    Box2D(const Vec3& center, RectF size, EulerAngles rotation) noexcept;
     FLOAT sdf(const Vec3& p) const noexcept;
 
 private:
-    // The cube's center, in world coordinates.
+    // The box's center, in world coordinates.
     Vec3 center_;
-    // The side length of a face of the cube.
-    FLOAT side_len_;
-    // The cube's basis vectors, in world coordinates.
+    RectF size_;
+    // The box's basis vectors, in world coordinates.
     Mat3 basis_;
     // The 4x4 world to local matrix.
     CoordTransform world_to_local_;

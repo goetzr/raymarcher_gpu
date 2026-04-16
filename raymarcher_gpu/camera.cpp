@@ -15,7 +15,7 @@ Camera::Camera(FLOAT sensor_aspect_ratio, FLOAT fov_horiz, SensorFit sensor_fit,
           world_to_camera_{}
 {
     fov_.horiz = deg2rad(fov_horiz);
-    fov_.vert = 2 * std::atan(std::tan(fov_.horiz * 0.5) / sensor_aspect_ratio);
+    fov_.vert = 2 * std::atan(std::tan(fov_.horiz * 0.5f) / sensor_aspect_ratio);
 
     // Calculate the basis vectors from the rotation.
     rotation.x = deg2rad(rotation.x);

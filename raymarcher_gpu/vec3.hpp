@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "shared.h"
+#include "core_types.hpp"
 
 struct Vec3 {
     constexpr FLOAT length_squared() const noexcept {

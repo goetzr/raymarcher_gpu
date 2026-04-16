@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "shared.h"
+#include "common.hpp"
 
 enum class SensorFit {
     // Decrease the canvas size (FOV) to match the output aspect ratio.

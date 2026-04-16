@@ -7,9 +7,7 @@
 
 #pragma once
 
-#include <numbers>
-
-#include "shared.h"
+#include "common.hpp"
 
 constexpr FLOAT deg2rad(FLOAT d) noexcept SH_ADDR_SPACE {
     return d * std::numbers::pi / 180;
