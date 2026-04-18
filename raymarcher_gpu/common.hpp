@@ -11,6 +11,8 @@
 #include <cmath>
 #include <numbers>
 #include <optional>
+#include <string>
+#include <iostream>
 
 #include "core_types.hpp"
 #include "vec3.hpp"

@@ -5,6 +5,8 @@
 //  Created by Russ Goetz on 4/8/26.
 //
 
+#include <iostream>
+
 #include "add_arrays.hpp"
 
 int main(int argc, const char * argv[]) {
