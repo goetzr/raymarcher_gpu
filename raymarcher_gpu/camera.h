@@ -7,35 +7,42 @@
 
 #pragma once
 
-#include "common.hpp"
-
-enum class SensorFit {
-    // Decrease the canvas size (FOV) to match the output aspect ratio.
-    Fill,
-    // Increase the canvas size (FOV) to match the output aspect ratio.
-    Overscan
-};
-
-struct Fov {
-    FLOAT horiz;
-    FLOAT vert;
-};
+#include "common.h"
 
 class Camera {
 public:
-    Camera(FLOAT sensor_aspect_ratio, FLOAT fov_horiz, SensorFit sensor_fit, FLOAT clip_near, FLOAT clip_far,
-               FLOAT3 pos, EulerAngles rotation) noexcept;
+    Camera(FLOAT3 pos, FLOAT3 rotation,
+           FLOAT fov_horiz, FLOAT sensor_aspect_ratio, FLOAT output_aspect_ratio, SensorFit sensor_fit,
+           FLOAT clip_near, FLOAT clip_far) noexcept;
 
-    Fov fov() const noexcept { return fov_; }
-    FLOAT sensor_aspect_ratio() const noexcept { return sensor_aspect_ratio_; }
-    SensorFit sensor_fit() const noexcept { return sensor_fit_; }
-    FLOAT3x3 basis() const noexcept { return basis_; }
     FLOAT3 position() const noexcept { return pos_; }
+    FLOAT3x3 basis() const noexcept { return basis_; }
     const CoordTransform& world_to_camera() const noexcept { return world_to_camera_; }
+    Fov fov() const noexcept { return fov_; }
     FLOAT clip_near() const noexcept { return clip_near_; }
     FLOAT clip_far() const noexcept { return clip_far_; }
     
 private:
+    void adjust_fov(FLOAT sensor_aspect_ratio, FLOAT output_aspect_ratio, SensorFit sensor_fit) noexcept;
+    
+private:
+    // The camera's position, expressed in world coordinates.
+    FLOAT3 pos_;
+    
+    // The camera's local coordinate system is a right-handed x/y/z system where:
+    //   i_hat points right along the x-axis,
+    //   j_hat points up along the y-axis,
+    //   k_hat points backward along the z-axis, opposite the camera's forward direction.
+    // These basis vectors are expressed in world coordinates.
+    FLOAT3x3 basis_{};
+    
+    // The size, in world units, of the canvas.
+    // NOTE: This is unnecessary for a raymarcher.
+    // RectF canvas_sz_;
+
+    // The 4x4 world to camera matrix.
+    CoordTransform world_to_camera_{};
+    
     // The focal length and sensor size define the **internal** geometry of the camera.
     // Together they determine the FOV.
     // NOTE: The focal length and sensor size are unnecessary for a raymarcher.
@@ -49,12 +56,14 @@ private:
     // It defines the sensor aspect ratio.
     // RectF sensor_sz_;
 
+    // NOTE: It's not necessary to store the sensor aspect ratio or the sensor fit.
+    //       They're only needed during construction to calculate the FOV.
     // The ratio of the width to the height of the film/sensor.
-    FLOAT sensor_aspect_ratio_;
-    // The FOV, in radians.
-    Fov fov_;
+    // FLOAT sensor_aspect_ratio_;
     // How to adjust the canvas size (FOV) to match the output aspect ratio.
-    SensorFit sensor_fit_;
+    // SensorFit sensor_fit_;
+    // The FOV, in radians.
+    Fov fov_{};
 
     // The near and far clipping planes are imaginary planes located at specific distances from the camera
     // along the camera's line of sight.
@@ -64,21 +73,4 @@ private:
     FLOAT clip_near_;
     // The distance, in world units, to the far clipping plane.
     FLOAT clip_far_;
-
-    // The camera's position, expressed in world coordinates.
-    FLOAT3 pos_;
-
-    // The camera's local coordinate system is a right-handed x/y/z system where:
-    //   i_hat points right along the x-axis,
-    //   j_hat points up along the y-axis,
-    //   k_hat points backward along the z-axis, opposite the camera's forward direction.
-    // These basis vectors are expressed in world coordinates.
-    FLOAT3x3 basis_;
-
-    // The size, in world units, of the canvas.
-    // NOTE: This is unnecessary for a raymarcher.
-    // RectF canvas_sz_;
-
-    // The 4x4 world to camera matrix.
-    CoordTransform world_to_camera_;
 };

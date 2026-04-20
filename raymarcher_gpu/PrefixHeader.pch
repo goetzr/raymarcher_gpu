@@ -1,0 +1,10 @@
+//
+//  PrefixHeader.pch
+//  raymarcher_gpu
+//
+//  Created by Russ Goetz on 4/19/26.
+//
+
+#pragma once
+
+#include <cmath>

@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "vec3.hpp"
+#include "float3.h"
 
 class Sphere  {
 public:

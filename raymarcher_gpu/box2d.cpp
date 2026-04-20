@@ -5,10 +5,10 @@
 //  Created by Russ Goetz on 4/15/26.
 //
 
-#include "box2d.hpp"
-#include "util.hpp"
+#include "box2d.h"
+#include "util.h"
 
-Box2D::Box2D(const Vec3& center, RectF size, EulerAngles rotation) noexcept
+Box2D::Box2D(const Vec3& center, RectF size, FLOAT3 rotation) noexcept
         : center_{center}, size_{size}, basis_{}, world_to_local_{}
 {
     // Calculate the basis vectors from the rotation.

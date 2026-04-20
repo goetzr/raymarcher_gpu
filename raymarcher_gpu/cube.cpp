@@ -8,7 +8,7 @@
 #include "cube.hpp"
 #include "util.hpp"
 
-Cube::Cube(Vec3 center, FLOAT side_len, EulerAngles rotation) noexcept
+Cube::Cube(Vec3 center, FLOAT side_len, FLOAT3 rotation) noexcept
         : center_{center}, side_len_{side_len}, basis_{}, world_to_local_{}
 {
     // Calculate the basis vectors from the rotation.

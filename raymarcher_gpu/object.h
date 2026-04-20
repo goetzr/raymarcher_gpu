@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "vec3.hpp"
+#include "float3.h"
 #include "sphere.hpp"
 #include "cube.hpp"
 #include "box2d.hpp"

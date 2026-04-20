@@ -7,13 +7,13 @@
 
 #pragma once
 
-#include "vec3.hpp"
+#include "float3.h"
 #include "common.hpp"
-#include "mat3.hpp"
+#include "float3x3.h"
 
 class Cube {
 public:
-    Cube(Vec3 center, FLOAT side_len, EulerAngles rotation) noexcept;
+    Cube(Vec3 center, FLOAT side_len, FLOAT3 rotation) noexcept;
     FLOAT sdf(const Vec3& p) const noexcept;
 
 private:

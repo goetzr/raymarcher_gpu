@@ -5,23 +5,29 @@
 //  Created by Russ Goetz on 4/14/26.
 //
 
-#include "camera.hpp"
-#include "util.hpp"
+#include "camera.h"
+#include "util.h"
 
-Camera::Camera(FLOAT sensor_aspect_ratio, FLOAT fov_horiz, SensorFit sensor_fit, FLOAT clip_near, FLOAT clip_far,
-               FLOAT3 pos, EulerAngles rotation) noexcept
-        : sensor_aspect_ratio_{sensor_aspect_ratio}, fov_{}, sensor_fit_{sensor_fit},
-          clip_near_{clip_near}, clip_far_{clip_far}, pos_{pos}, basis_{},
-          world_to_camera_{}
+Camera::Camera(FLOAT3 pos, FLOAT3 rotation,
+       FLOAT fov_horiz, FLOAT sensor_aspect_ratio, FLOAT output_aspect_ratio, SensorFit sensor_fit,
+       FLOAT clip_near, FLOAT clip_far) noexcept
+    : pos_{pos}, clip_near_{clip_near}, clip_far_{clip_far}
 {
-    fov_.horiz = deg2rad(fov_horiz);
-    fov_.vert = 2 * std::atan(std::tan(fov_.horiz * 0.5f) / sensor_aspect_ratio);
-
+    
     // Calculate the basis vectors from the rotation.
     rotation.x = deg2rad(rotation.x);
     rotation.y = deg2rad(rotation.y);
     rotation.z = deg2rad(rotation.z);
     basis_ = generate_basis(rotation);
+    
+    // Calculate the world to camera matrix from the basis vectors and the position.
+    world_to_camera_ = inverse_coord_transform(basis_, pos_);
+    
+    // Calculate the vertical FOV.
+    fov_.horiz = deg2rad(fov_horiz);
+    fov_.vert = 2 * std::atan(std::tan(fov_.horiz * 0.5f) / sensor_aspect_ratio);
+    // Adjust the FOV for an aspect ratio mismatch between the sensor and the output raster.
+    adjust_fov(sensor_aspect_ratio, output_aspect_ratio, sensor_fit);
 
     // NOTE: This is unnecessary for a raymarcher. The desired FOV is specified directly.
     // fov_.horiz = 2 * std::atan2(sensor_sz_.width  * kInchesToMm / 2,  focal_len_);
@@ -30,7 +36,25 @@ Camera::Camera(FLOAT sensor_aspect_ratio, FLOAT fov_horiz, SensorFit sensor_fit,
     // NOTE: Unnecessary for a raymarcher.
     // canvas_sz_.width  = 2 * std::tan(fov_horiz_ / 2) * clip_near_;
     // canvas_sz_.height = 2 * std::tan(fov_vert_  / 2) * clip_near_;
+}
 
-    // Calculate the world to camera matrix from the basis vectors and the position.
-    world_to_camera_ = inverse_coord_transform(basis_, pos_);
+void Camera::adjust_fov(FLOAT sensor_aspect_ratio, FLOAT output_aspect_ratio, SensorFit sensor_fit) noexcept {
+    switch (sensor_fit) {
+        case SensorFit::Fill:
+            if (sensor_aspect_ratio > output_aspect_ratio) {
+                fov_.horiz = 2 * std::atan(std::tan(fov_.vert * 0.5) * output_aspect_ratio);
+            } else if (sensor_aspect_ratio < output_aspect_ratio) {
+                fov_.vert = 2 * std::atan(std::tan(fov_.horiz * 0.5) / output_aspect_ratio);
+            }
+            break;
+        case SensorFit::Overscan:
+            if (sensor_aspect_ratio > output_aspect_ratio) {
+                fov_.vert = 2 * std::atan(std::tan(fov_.horiz * 0.5) / output_aspect_ratio);
+            } else if (sensor_aspect_ratio < output_aspect_ratio) {
+                fov_.horiz = 2 * std::atan(std::tan(fov_.vert * 0.5) * output_aspect_ratio);
+            }
+            break;
+        default:
+            // Never get here.
+    }
 }

@@ -7,16 +7,7 @@
 
 #pragma once
 
-#include <algorithm>
-#include <cmath>
-#include <numbers>
-#include <optional>
-#include <string>
-#include <iostream>
-
-#include "core_types.hpp"
-#include "vec3.hpp"
-#include "mat3.hpp"
+#include "core_types.h"
 
 struct RectF {
     FLOAT width;
@@ -28,14 +19,20 @@ struct RectI {
     int32_t height;
 };
 
-struct EulerAngles {
-    FLOAT x;
-    FLOAT y;
-    FLOAT z;
+struct Fov {
+    FLOAT horiz;
+    FLOAT vert;
+};
+
+enum class SensorFit {
+    // Decrease the canvas size (FOV) to match the output aspect ratio.
+    Fill,
+    // Increase the canvas size (FOV) to match the output aspect ratio.
+    Overscan
 };
 
 // A 4x4 coordinate transformation matrix, split out into its rotation matrix and translation vector.
 struct CoordTransform {
-    Mat3 rotation;
-    Vec3 translation;
+    FLOAT3x3 rotation;
+    FLOAT3 translation;
 };
