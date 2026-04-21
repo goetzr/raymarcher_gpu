@@ -1,5 +1,5 @@
 //
-//  scene.hpp
+//  scene.h
 //  raymarcher_gpu
 //
 //  Created by Russ Goetz on 4/15/26.
@@ -7,22 +7,17 @@
 
 #pragma once
 
-#include "object.hpp"
+#include "object.h"
 
-constexpr int MaxObjects = 100;
-
-struct ClosestObject {
-    int index;
-    double distance;
-};
+CONST_ADDR_SPACE constexpr int kMaxObjects = 100;
 
 class Scene {
 public:
-    Scene(std::array<Object, MaxObjects> objects)
-        : objects_{objects}
-    {}
-    std::optional<ClosestObject> closest_object(const Vec3& p) const noexcept;
+    inline bool init(THREAD_ADDR_SPACE Object* objects, size_t num_objs);
+    bool closest_object(THREAD_ADDR_SPACE const FLOAT3& p,
+                        THREAD_ADDR_SPACE ClosestObject& closest_obj) const;
 
 private:
-    std::array<Object, MaxObjects> objects_;
+    Object objects_[kMaxObjects];
+    size_t num_objs_ = 0;
 };

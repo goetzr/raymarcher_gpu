@@ -1,5 +1,5 @@
 //
-//  raymarcher.hpp
+//  raymarcher.h
 //  raymarcher_gpu
 //
 //  Created by Russ Goetz on 4/11/26.

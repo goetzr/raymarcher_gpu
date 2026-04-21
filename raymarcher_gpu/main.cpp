@@ -5,15 +5,53 @@
 //  Created by Russ Goetz on 4/5/26.
 //
 
-#include "common.hpp"
-#include "raymarcher.hpp"
+#include "shared.h"
+#include "camera.h"
+#include "object.h"
+#include "scene.h"
+
+constexpr RectI kOutputSize = {
+    .width = 1024,
+    .height = 768
+};
+constexpr FLOAT kOutputAspectRatio = (FLOAT)kOutputSize.width / kOutputSize.height;
 
 int main(int argc, const char * argv[]) {
-    Raymarcher marcher;
-    std::string error;
-    if (!marcher.initialize(error)) {
-        std::cerr << "ERROR: " << error << "\n";
-        return 1;
+    // Create the camera.
+    FLOAT3 cam_pos { 0, 0, 0 };
+    FLOAT3 cam_rot { 0, 0, 0 };
+    FLOAT fov_horiz = 80;
+    FLOAT sensor_aspect_ratio = 3.0 / 2;
+    FLOAT clip_near = 0.1;
+    FLOAT clip_far = 100;
+    Camera camera {
+        cam_pos, cam_rot,
+        fov_horiz, sensor_aspect_ratio, kOutputAspectRatio, SensorFit::Overscan,
+        clip_near, clip_far
+    };
+    
+    // Create the scene to render.
+    // NOTE: The camera is facing along the negative z-axis.
+    //       If an object is to be visible, its z coordinate must be negative.
+    Object scene_objects[] = {
+        Sphere {
+            FLOAT3 { -15, 0, -30 },
+            5
+        },
+        Cube {
+            FLOAT3 { 0, 0, -30 },
+            10,
+            FLOAT3 { 0, 45, 0 }
+        },
+        Box2D {
+            FLOAT3 { 15, 0, -30 },
+            { 10, 10 },
+            FLOAT3 { 0, 45, 0 }
+        }
+    };
+    size_t num_objs = sizeof(scene_objects) / sizeof(Object);
+    Scene scene;
+    if (!scene.init(scene_objects, num_objs)) {
+        // TODO: Handle error
     }
-    return 0;
 }

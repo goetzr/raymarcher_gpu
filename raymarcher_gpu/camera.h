@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "common.h"
+#include "shared.h"
 
 class Camera {
 public:

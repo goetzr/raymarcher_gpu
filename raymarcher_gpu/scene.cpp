@@ -5,25 +5,14 @@
 //  Created by Russ Goetz on 4/15/26.
 //
 
-#include "scene.hpp"
+#include "scene.h"
 
-std::optional<ClosestObject> Scene::closest_object(const Vec3& p) const noexcept {
-    if (objects_.empty()) {
-        return std::nullopt;
+bool Scene::init(THREAD_ADDR_SPACE Object* objects, size_t num_objs) {
+    if (num_objs > kMaxObjects) {
+        return false;
     }
-
-    ClosestObject closest_elem {
-        .index = 0,
-        .distance = objects_[0].sdf(p)
-    };
-
-    for (int i = 1; i != objects_.size(); ++i) {
-        double dist = objects_[i].sdf(p);
-        if (dist < closest_elem.distance) {
-            closest_elem.index = i;
-            closest_elem.distance = dist;
-        }
-    }
-
-    return std::make_optional<ClosestObject>(closest_elem);
+    
+    std::memcpy(objects_, objects, num_objs * sizeof(Object));
+    num_objs_ = num_objs;
+    return true;
 }

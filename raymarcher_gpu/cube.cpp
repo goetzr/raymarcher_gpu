@@ -5,11 +5,11 @@
 //  Created by Russ Goetz on 4/15/26.
 //
 
-#include "cube.hpp"
-#include "util.hpp"
+#include "cube.h"
+#include "util.h"
 
-Cube::Cube(Vec3 center, FLOAT side_len, FLOAT3 rotation) noexcept
-        : center_{center}, side_len_{side_len}, basis_{}, world_to_local_{}
+Cube::Cube(FLOAT3 center, FLOAT side_len, FLOAT3 rotation) noexcept
+        : center_{center}, side_len_{side_len}
 {
     // Calculate the basis vectors from the rotation.
     rotation.x = deg2rad(rotation.x);
@@ -19,29 +19,4 @@ Cube::Cube(Vec3 center, FLOAT side_len, FLOAT3 rotation) noexcept
 
     // Calculate the world to local matrix from the basis vectors and the center position.
     world_to_local_ = inverse_coord_transform(basis_, center_);
-}
-
-FLOAT Cube::sdf(const Vec3& p) const noexcept {
-    // Transform the point from world coordinates to local coordinates.
-    Vec3 p2 = world_to_local_.rotation * p + world_to_local_.translation;
-
-    // 1. Calculate half-extent.
-    FLOAT b = side_len_ * 0.5f;
-
-    // 2. Component-wise distance to the faces.
-    FLOAT dx = std::abs(p2.x) - b;
-    FLOAT dy = std::abs(p2.y) - b;
-    FLOAT dz = std::abs(p2.z) - b;
-
-    // 3. Distance to the outside of the cube.
-    FLOAT d2d_outside = std::sqrt(
-        std::max(dx, 0.0f) * std::max(dx, 0.0f) +
-        std::max(dy, 0.0f) * std::max(dy, 0.0f) +
-        std::max(dz, 0.0f) * std::max(dz, 0.0f)
-    );
-
-    // Distance when inside the box (nearest face).
-    FLOAT d2d_inside = std::min(std::max(dx, std::max(dy, dz)), 0.0f);
-
-    return d2d_outside + d2d_inside;
 }

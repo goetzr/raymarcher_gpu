@@ -1,5 +1,5 @@
 //
-//  sphere.hpp
+//  sphere.h
 //  raymarcher_gpu
 //
 //  Created by Russ Goetz on 4/15/26.
@@ -7,19 +7,14 @@
 
 #pragma once
 
-#include "float3.h"
+#include "shared.h"
 
 class Sphere  {
 public:
-    Sphere(const Vec3& center, FLOAT radius) noexcept
-        : center_{center}, radius_{radius}
-    {}
-
-    FLOAT sdf(const Vec3& p) const noexcept {
-        return (p - center_).length() - radius_;
-    }
+    inline Sphere(THREAD_ADDR_SPACE const FLOAT3& center, FLOAT radius) noexcept;
+    inline FLOAT sdf(THREAD_ADDR_SPACE const FLOAT3& p) const;
 
 private:
-    Vec3 center_;
+    FLOAT3 center_;
     FLOAT radius_;
 };

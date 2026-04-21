@@ -1,5 +1,5 @@
 //
-//  object.hpp
+//  object.h
 //  raymarcher_gpu
 //
 //  Created by Russ Goetz on 4/15/26.
@@ -7,11 +7,10 @@
 
 #pragma once
 
-#include "float3.h"
-#include "sphere.hpp"
-#include "cube.hpp"
-#include "box2d.hpp"
-#include "common.hpp"
+#include "shared.h"
+#include "sphere.h"
+#include "cube.h"
+#include "box2d.h"
 
 enum class ObjectType {
     Unused,
@@ -23,10 +22,10 @@ enum class ObjectType {
 class Object {
 public:
     Object() noexcept : type_{ObjectType::Unused} {}
-    Object(Sphere&& sphere) noexcept : type_{ObjectType::Sphere}, sphere_{sphere} {}
-    Object(Cube&& cube) noexcept : type_{ObjectType::Cube}, cube_{cube} {}
-    Object(Box2D&& box2d) noexcept : type_{ObjectType::Box2D}, box2d_{box2d} {}
-    FLOAT sdf(const Vec3& p) const noexcept;
+    Object(THREAD_ADDR_SPACE Sphere&& sphere) noexcept : type_{ObjectType::Sphere}, sphere_{sphere} {}
+    Object(THREAD_ADDR_SPACE Cube&& cube) noexcept : type_{ObjectType::Cube}, cube_{cube} {}
+    Object(THREAD_ADDR_SPACE Box2D&& box2d) noexcept : type_{ObjectType::Box2D}, box2d_{box2d} {}
+    FLOAT sdf(THREAD_ADDR_SPACE const FLOAT3& p) const;
 
 private:
     ObjectType type_;

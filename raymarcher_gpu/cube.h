@@ -1,5 +1,5 @@
 //
-//  cube.hpp
+//  cube.h
 //  raymarcher_gpu
 //
 //  Created by Russ Goetz on 4/15/26.
@@ -7,22 +7,20 @@
 
 #pragma once
 
-#include "float3.h"
-#include "common.hpp"
-#include "float3x3.h"
+#include "shared.h"
 
 class Cube {
 public:
-    Cube(Vec3 center, FLOAT side_len, FLOAT3 rotation) noexcept;
-    FLOAT sdf(const Vec3& p) const noexcept;
+    Cube(THREAD_ADDR_SPACE FLOAT3 center, FLOAT side_len, FLOAT3 rotation) noexcept;
+    FLOAT sdf(THREAD_ADDR_SPACE const FLOAT3& p) const;
 
 private:
     // The cube's center, in world coordinates.
-    Vec3 center_;
+    FLOAT3 center_;
     // The side length of a face of the cube.
     FLOAT side_len_;
     // The cube's basis vectors, in world coordinates.
-    Mat3 basis_;
+    FLOAT3x3 basis_{};
     // The 4x4 world to local matrix.
-    CoordTransform world_to_local_;
+    CoordTransform world_to_local_{};
 };

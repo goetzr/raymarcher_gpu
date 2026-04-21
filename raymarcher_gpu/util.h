@@ -1,5 +1,5 @@
 //
-//  util.hpp
+//  util.h
 //  raymarcher_gpu
 //
 //  Created by Russ Goetz on 4/14/26.
