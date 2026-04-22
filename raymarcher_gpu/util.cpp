@@ -12,19 +12,19 @@ FLOAT3x3 generate_basis(FLOAT3 rotation) noexcept {
     // then curl your fingers in the direction of the rotation.
     FLOAT3x3 rot_x {
         FLOAT3 { 1, 0, 0 },
-        FLOAT3 { 0, COS(rotation.x), SIN(rotation.x) },
-        FLOAT3 { 0, -SIN(rotation.x), COS(rotation.x) }
+        FLOAT3 { 0, std::cos(rotation.x), std::sin(rotation.x) },
+        FLOAT3 { 0, -std::sin(rotation.x), std::cos(rotation.x) }
     };
 
     FLOAT3x3 rot_y {
-        FLOAT3 { COS(rotation.y), 0, -SIN(rotation.y) },
+        FLOAT3 { std::cos(rotation.y), 0, -std::sin(rotation.y) },
         FLOAT3 { 0, 1, 0 },
-        FLOAT3 { SIN(rotation.y), 0, COS(rotation.y) }
+        FLOAT3 { std::sin(rotation.y), 0, std::cos(rotation.y) }
     };
 
     FLOAT3x3 rot_z {
-        FLOAT3 { COS(rotation.z), SIN(rotation.z), 0 },
-        FLOAT3 { -SIN(rotation.z), COS(rotation.z), 0 },
+        FLOAT3 { std::cos(rotation.z), std::sin(rotation.z), 0 },
+        FLOAT3 { -std::sin(rotation.z), std::cos(rotation.z), 0 },
         FLOAT3 { 0, 0, 1 }
     };
 

@@ -7,9 +7,6 @@
 
 #include "sphere.h"
 
-#include <metal_stdlib>
-using namespace metal;
-
-FLOAT Sphere::sdf(THREAD_ADDR_SPACE const FLOAT3& p) const {
+FLOAT Sphere::sdf(THREAD_ADDR_SPACE const FLOAT3& p) const constant {
     return length(p - center_) - radius_;
 }

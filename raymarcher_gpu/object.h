@@ -22,10 +22,10 @@ enum class ObjectType {
 class Object {
 public:
     Object() noexcept : type_{ObjectType::Unused} {}
-    Object(THREAD_ADDR_SPACE Sphere&& sphere) noexcept : type_{ObjectType::Sphere}, sphere_{sphere} {}
-    Object(THREAD_ADDR_SPACE Cube&& cube) noexcept : type_{ObjectType::Cube}, cube_{cube} {}
-    Object(THREAD_ADDR_SPACE Box2D&& box2d) noexcept : type_{ObjectType::Box2D}, box2d_{box2d} {}
-    FLOAT sdf(THREAD_ADDR_SPACE const FLOAT3& p) const;
+    Object(THREAD_ADDR_SPACE Sphere&& sphere) NOEXCEPT : type_{ObjectType::Sphere}, sphere_{sphere} {}
+    Object(THREAD_ADDR_SPACE Cube&& cube) NOEXCEPT : type_{ObjectType::Cube}, cube_{cube} {}
+    Object(THREAD_ADDR_SPACE Box2D&& box2d) NOEXCEPT : type_{ObjectType::Box2D}, box2d_{box2d} {}
+    FLOAT sdf(THREAD_ADDR_SPACE const FLOAT3& p) const CONST_ADDR_SPACE;
 
 private:
     ObjectType type_;

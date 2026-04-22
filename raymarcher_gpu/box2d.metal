@@ -6,13 +6,9 @@
 //
 
 #include "box2d.h"
-
-#include <metal_stdlib>
-using namespace metal;
-
 #include "shared.h"
 
-FLOAT Box2D::sdf(THREAD_ADDR_SPACE const FLOAT3& p) const {
+FLOAT Box2D::sdf(THREAD_ADDR_SPACE const FLOAT3& p) const constant {
     FLOAT3 p2 = world_to_local_.rotation * p + world_to_local_.translation;
 
     // 1. Calculate 2D half-extents.

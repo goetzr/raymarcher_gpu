@@ -7,8 +7,7 @@
 
 #pragma once
 
-#include "core_types.h"
-#include "common.h"
+#include "shared.h"
 
 constexpr float deg2rad(float d) noexcept {
     return d * std::numbers::pi_v<float> / 180;

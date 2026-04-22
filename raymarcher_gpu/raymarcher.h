@@ -13,7 +13,7 @@
 
 class Raymarcher {
 public:
-    bool initialize(std::string& error_msg) noexcept;
+    bool init(std::string& error_msg) noexcept;
     ~Raymarcher();
     
 private:

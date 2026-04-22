@@ -15,12 +15,12 @@ public:
            FLOAT fov_horiz, FLOAT sensor_aspect_ratio, FLOAT output_aspect_ratio, SensorFit sensor_fit,
            FLOAT clip_near, FLOAT clip_far) noexcept;
 
-    FLOAT3 position() const noexcept { return pos_; }
-    FLOAT3x3 basis() const noexcept { return basis_; }
-    const CoordTransform& world_to_camera() const noexcept { return world_to_camera_; }
-    Fov fov() const noexcept { return fov_; }
-    FLOAT clip_near() const noexcept { return clip_near_; }
-    FLOAT clip_far() const noexcept { return clip_far_; }
+    FLOAT3 position() const NOEXCEPT CONST_ADDR_SPACE { return pos_; }
+    FLOAT3x3 basis() const NOEXCEPT CONST_ADDR_SPACE { return basis_; }
+    const CoordTransform world_to_camera() const NOEXCEPT CONST_ADDR_SPACE { return world_to_camera_; }
+    Fov fov() const NOEXCEPT CONST_ADDR_SPACE { return fov_; }
+    FLOAT clip_near() const NOEXCEPT CONST_ADDR_SPACE { return clip_near_; }
+     FLOAT clip_far() const NOEXCEPT CONST_ADDR_SPACE { return clip_far_; }
     
 private:
     void adjust_fov(FLOAT sensor_aspect_ratio, FLOAT output_aspect_ratio, SensorFit sensor_fit) noexcept;

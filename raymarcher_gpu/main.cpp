@@ -9,6 +9,7 @@
 #include "camera.h"
 #include "object.h"
 #include "scene.h"
+#include "raymarcher.h"
 
 constexpr RectI kOutputSize = {
     .width = 1024,
@@ -52,6 +53,14 @@ int main(int argc, const char * argv[]) {
     size_t num_objs = sizeof(scene_objects) / sizeof(Object);
     Scene scene;
     if (!scene.init(scene_objects, num_objs)) {
-        // TODO: Handle error
+        std::cerr << "ERROR: failed to initialize the scene to render\n";
+        return 1;
+    }
+    
+    Raymarcher marcher;
+    std::string marcher_error;
+    if (!marcher.init(marcher_error)) {
+        std::cerr << "ERROR: failed to initialize the ray marcher: " << marcher_error << "\n";
+        return 1;
     }
 }

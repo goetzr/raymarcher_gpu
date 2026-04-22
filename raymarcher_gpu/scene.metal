@@ -7,11 +7,8 @@
 
 #include "scene.h"
 
-#include <metal_stdlib>
-using namespace metal;
-
 bool Scene::closest_object(THREAD_ADDR_SPACE const FLOAT3& p,
-                           THREAD_ADDR_SPACE ClosestObject& closest_obj) const {
+                           THREAD_ADDR_SPACE ClosestObject& closest_obj) const constant {
     if (num_objs_ == 0) {
         return false;
     }

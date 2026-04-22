@@ -11,8 +11,8 @@
 
 class Box2D  {
 public:
-    Box2D(THREAD_ADDR_SPACE const FLOAT3& center, RectF size, FLOAT3 rotation) noexcept;
-    FLOAT sdf(THREAD_ADDR_SPACE const FLOAT3& p) const;
+    Box2D(THREAD_ADDR_SPACE const FLOAT3& center, RectF size, FLOAT3 rotation) NOEXCEPT;
+    FLOAT sdf(THREAD_ADDR_SPACE const FLOAT3& p) const CONST_ADDR_SPACE;
 
 private:
     // The box's center, in world coordinates.

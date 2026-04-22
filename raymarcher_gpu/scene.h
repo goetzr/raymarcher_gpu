@@ -15,7 +15,7 @@ class Scene {
 public:
     inline bool init(THREAD_ADDR_SPACE Object* objects, size_t num_objs);
     bool closest_object(THREAD_ADDR_SPACE const FLOAT3& p,
-                        THREAD_ADDR_SPACE ClosestObject& closest_obj) const;
+                        THREAD_ADDR_SPACE ClosestObject& closest_obj) const CONST_ADDR_SPACE;
 
 private:
     Object objects_[kMaxObjects];

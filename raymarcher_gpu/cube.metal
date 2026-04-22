@@ -7,10 +7,7 @@
 
 #include "cube.h"
 
-#include <metal_stdlib>
-using namespace metal;
-
-FLOAT Cube::sdf(THREAD_ADDR_SPACE const FLOAT3& p) const {
+FLOAT Cube::sdf(THREAD_ADDR_SPACE const FLOAT3& p) const constant {
     // Transform the point from world coordinates to local coordinates.
     FLOAT3 p2 = world_to_local_.rotation * p + world_to_local_.translation;
 

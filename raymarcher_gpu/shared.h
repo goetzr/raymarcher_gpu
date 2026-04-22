@@ -8,9 +8,12 @@
 #pragma once
 
 #ifdef __METAL_VERSION__
+    #include <metal_stdlib>
+    using namespace metal;
     using FLOAT = float;
     using FLOAT3 = float3;
     using FLOAT3x3 = float3x3;
+    #define NOEXCEPT
     #define THREAD_ADDR_SPACE thread
     #define CONST_ADDR_SPACE constant
 #else
@@ -18,6 +21,7 @@
     using FLOAT = float;
     using FLOAT3 = simd::float3;
     using FLOAT3x3 = simd::float3x3;
+    #define NOEXCEPT noexcept
     #define THREAD_ADDR_SPACE
     #define CONST_ADDR_SPACE 
 #endif
@@ -106,5 +110,5 @@ struct CoordTransform {
 
 struct ClosestObject {
     int index;
-    double distance;
+    FLOAT distance;
 };

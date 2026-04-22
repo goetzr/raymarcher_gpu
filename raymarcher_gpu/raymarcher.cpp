@@ -5,9 +5,9 @@
 //  Created by Russ Goetz on 4/11/26.
 //
 
-#include "raymarcher.hpp"
+#include "raymarcher.h"
 
-bool Raymarcher::initialize(std::string& error_msg) noexcept {
+bool Raymarcher::init(std::string& error_msg) noexcept {
     std::ostringstream oss_err;
     
     // Metal creates a MTLDevice for each GPU.
@@ -19,7 +19,7 @@ bool Raymarcher::initialize(std::string& error_msg) noexcept {
         return false;
     }
     
-    // Nested scope to ensure objects are released.
+    // Nested scope to ensure library and funnction objects are released.
     {
         // When building the app, Xcode compiles shader functions found in .metal files,
         // then adds them to a default Metal library that it embeds in the app.

@@ -11,8 +11,8 @@
 
 class Sphere  {
 public:
-    inline Sphere(THREAD_ADDR_SPACE const FLOAT3& center, FLOAT radius) noexcept;
-    inline FLOAT sdf(THREAD_ADDR_SPACE const FLOAT3& p) const;
+    Sphere(THREAD_ADDR_SPACE const FLOAT3& center, FLOAT radius) noexcept;
+    FLOAT sdf(THREAD_ADDR_SPACE const FLOAT3& p) const CONST_ADDR_SPACE;
 
 private:
     FLOAT3 center_;

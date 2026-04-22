@@ -7,12 +7,9 @@
 
 #include "object.h"
 
-#include <metal_stdlib>
-using namespace metal;
-
 constant constexpr FLOAT kMaxDistance = 10000;
 
-FLOAT Object::sdf(THREAD_ADDR_SPACE const FLOAT3& p) const {
+FLOAT Object::sdf(THREAD_ADDR_SPACE const FLOAT3& p) const constant {
     switch (type_) {
         case ObjectType::Unused:
             return kMaxDistance;

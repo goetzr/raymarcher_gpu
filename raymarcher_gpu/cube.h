@@ -12,7 +12,7 @@
 class Cube {
 public:
     Cube(THREAD_ADDR_SPACE FLOAT3 center, FLOAT side_len, FLOAT3 rotation) noexcept;
-    FLOAT sdf(THREAD_ADDR_SPACE const FLOAT3& p) const;
+    FLOAT sdf(THREAD_ADDR_SPACE const FLOAT3& p) const CONST_ADDR_SPACE;
 
 private:
     // The cube's center, in world coordinates.
