@@ -26,68 +26,14 @@
     #define CONST_ADDR_SPACE 
 #endif
 
-//#ifdef __METAL_VERSION__
-//
-//    inline FLOAT length(FLOAT3 v) noexcept {
-//        return metal::length(v);
-//    }
-//
-//    inline FLOAT3 normalize(FLOAT3 v) noexcept {
-//        return metal::normalize(v);
-//    }
-//
-//    inline FLOAT dot(FLOAT3 a, FLOAT3 b) noexcept {
-//        return metal::dot(a, b);
-//    }
-//
-//    inline FLOAT3x3 transpose(FLOAT3x3 m) noexcept {
-//        return metal::transpose(m);
-//    }
-//
-//    inline float determinant(FLOAT3x3 m) noexcept {
-//        return metal::determinant(m);
-//    }
-//
-//    inline FLOAT3x3 inverse(FLOAT3x3 m) {
-//        return metal::inverse(m);
-//    }
-//
-//#else // __METAL_VERSION__
-//
-//    inline FLOAT length(FLOAT3 v) noexcept {
-//        return simd_length(v);
-//    }
-//
-//    inline FLOAT3 normalize(FLOAT3 v) noexcept {
-//        return simd_normalize(v);
-//    }
-//
-//    inline FLOAT dot(FLOAT3 a, FLOAT3 b) noexcept {
-//        return simd_dot(a, b);
-//    }
-//
-//    inline FLOAT3x3 transpose(FLOAT3x3 m) noexcept {
-//        return simd_transpose(m);
-//    }
-//
-//    inline float determinant(FLOAT3x3 m) noexcept {
-//        return simd_determinant(m);
-//    }
-//
-//    inline FLOAT3x3 inverse(FLOAT3x3 m) {
-//        return simd_inverse(m);
-//    }
-//
-//#endif
-
 struct RectF {
     FLOAT width;
     FLOAT height;
 };
 
 struct RectI {
-    int32_t width;
-    int32_t height;
+    uint32_t width;
+    uint32_t height;
 };
 
 struct Fov {

@@ -19,10 +19,10 @@ constant static constexpr int kMaxSteps = 50;
 // A ray has hit an object in the scene if its distance to that object is less than Epsilon.
 constant static constexpr float kEpsilon = 0.001;
 
-kernel void raymarch_pixel(constant uint2& output_sz [[buffer(0)]],
+kernel void raymarch_pixel(constant const RectI& output_sz [[buffer(0)]],
                            constant const Camera& camera [[buffer(1)]],
                            constant const Scene& scene [[buffer(2)]],
-                           texture2d<uint32_t, access::write> pixels_tex [[texture(0)]],
+                           device uint32_t* pixels [[buffer(3)]],
                            uint2 gid [[thread_position_in_grid]])
 {
     
@@ -36,15 +36,15 @@ kernel void raymarch_pixel(constant uint2& output_sz [[buffer(0)]],
     //         screen space has its origin at the center and coordinates are in the range [-1, 1]
     //       Both conventions arrive at the same result.
     
-    // Check for out-of-bounds if the texture dimensions aren't a multiple of threadgroup size.
-    if (gid.x >= pixels_tex.get_width() || gid.y >= pixels_tex.get_height()) {
+    // Check for out-of-bounds if the raster dimensions aren't a multiple of threadgroup size.
+    if (gid.x >= output_sz.width || gid.y >= output_sz.height) {
         return;
     }
     
     // Convert from raster coordinates to Normalized Screen Coordinates (NSC).
     // NSC space has its origin at the top-left and coordinates are in the range [0, 1].
-    float u = (gid.x + 0.5f) / output_sz.x;
-    float v = (gid.y + 0.5f) / output_sz.y;
+    float u = (gid.x + 0.5f) / output_sz.width;
+    float v = (gid.y + 0.5f) / output_sz.height;
     
     // Convert from NSC to Normalized Device Coordinates (NDC).
     // NDC space has its origin at the center and coordinates are in the range [-1, 1].
@@ -106,5 +106,5 @@ kernel void raymarch_pixel(constant uint2& output_sz [[buffer(0)]],
         ray_len += closest_obj.distance;
     }
     
-    pixels_tex.write(pixel_argb, gid);
+    pixels[gid.y * output_sz.width + gid.x] = pixel_argb;
 }
