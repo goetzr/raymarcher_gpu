@@ -14,10 +14,6 @@
 class Raymarcher {
 public:
     bool init(std::string& error_msg) noexcept;
-    ~Raymarcher();
-    
-private:
-    void release() noexcept;
     
 private:
     constexpr static const char* kRaymarchPixelFuncName = "raymarch_pixel";

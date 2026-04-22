@@ -48,14 +48,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		E83EA5992F83351600E59DDB /* raymarcher_gpu */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = raymarcher_gpu;
-			sourceTree = "<group>";
-		};
 		E83EA5BE2F8702B100E59DDB /* add_arrays */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = add_arrays;
+			sourceTree = "<group>";
+		};
+		E84925822F9978F200829FC0 /* raymarcher_gpu */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = raymarcher_gpu;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -87,7 +87,7 @@
 		E83EA58E2F83351500E59DDB = {
 			isa = PBXGroup;
 			children = (
-				E83EA5992F83351600E59DDB /* raymarcher_gpu */,
+				E84925822F9978F200829FC0 /* raymarcher_gpu */,
 				E83EA5BE2F8702B100E59DDB /* add_arrays */,
 				E83EA5A12F847FC700E59DDB /* Frameworks */,
 				E83EA5982F83351600E59DDB /* Products */,
@@ -132,7 +132,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				E83EA5992F83351600E59DDB /* raymarcher_gpu */,
+				E84925822F9978F200829FC0 /* raymarcher_gpu */,
 			);
 			name = raymarcher_gpu;
 			packageProductDependencies = (
