@@ -113,6 +113,7 @@ bool Raymarcher::march_rays(const NS::SharedPtr<MTL::Buffer>& output_sz,
     if (tg_sz > pixel_cnt) {
         tg_sz = pixel_cnt;
     }
+    std::cout << "Using " << tg_sz << " threads\n";
     auto thread_grp_sz = MTL::Size(tg_sz, 1, 1);
     
     // Encode the compute command to the command queue to dispatch the grid of threads.

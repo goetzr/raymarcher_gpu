@@ -132,6 +132,24 @@ int main(int argc, const char * argv[]) {
         return 1;
     }
     
+    auto output_sz_buf = NS::TransferPtr(device->newBuffer(reinterpret_cast<const void*>(&kOutputSize), sizeof(kOutputSize), MTL::ResourceStorageModeShared));
+    if (!output_sz_buf) {
+        std::cerr << "ERROR: failed to create output size buffer\n";
+        return 1;
+    }
+    
+    auto camera_buf = NS::TransferPtr(device->newBuffer(reinterpret_cast<const void*>(&camera), sizeof(camera), MTL::ResourceStorageModeShared));
+    if (!camera_buf) {
+        std::cerr << "ERROR: failed to create camera buffer\n";
+        return 1;
+    }
+    
+    auto scene_buf = NS::TransferPtr(device->newBuffer(reinterpret_cast<const void*>(&scene), sizeof(scene), MTL::ResourceStorageModeShared));
+    if (!scene_buf) {
+        std::cerr << "ERROR: failed to create scene buffer\n";
+        return 1;
+    }
+    
     // ----------------------------------------------------------------------
     // Main Loop.
     // ----------------------------------------------------------------------
@@ -149,7 +167,15 @@ int main(int argc, const char * argv[]) {
         }
 
         // Compute pixels on the GPU.
-        
+        static bool exec = true;
+        if (exec) {
+            exec = false;
+            std::string march_error;
+            if (!marcher.march_rays(output_sz_buf, camera_buf, scene_buf, pixels, march_error)) {
+                std::cerr << "ERROR: failed to march the rays: " << march_error << "\n";
+                return 1;
+            }
+        }
 
         // Update SDL texture with pixel buffer
         SDL_UpdateTexture(texture, nullptr, pixels->contents(), kOutputSize.width * sizeof(uint32_t));
