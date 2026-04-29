@@ -13,6 +13,8 @@
 		E83EA5C92F87037300E59DDB /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E83EA5A82F847FED00E59DDB /* Metal.framework */; };
 		E83EA5CA2F87038100E59DDB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E83EA5A62F847FE200E59DDB /* QuartzCore.framework */; };
 		E83EA5CB2F87039200E59DDB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E83EA5B22F84873600E59DDB /* Foundation.framework */; };
+		E8F7755F2FA2C98900F4E573 /* SDL3.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8F7755D2FA2C97C00F4E573 /* SDL3.xcframework */; };
+		E8F775602FA2C98900F4E573 /* SDL3.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E8F7755D2FA2C97C00F4E573 /* SDL3.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,11 +36,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		E883C9552FA03111000A29C0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E8F775602FA2C98900F4E573 /* SDL3.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E83E59082F997E070005283D /* SDL3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL3.framework; sourceTree = "<group>"; };
-		E83E59102FA023E90005283D /* SDL3-3.4.4.dmg */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SDL3-3.4.4.dmg"; path = "../../Downloads/SDL3-3.4.4.dmg"; sourceTree = "<group>"; };
 		E83EA5972F83351600E59DDB /* raymarcher_gpu */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = raymarcher_gpu; sourceTree = BUILT_PRODUCTS_DIR; };
 		E83EA5A22F847FC700E59DDB /* FoundationModels.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FoundationModels.framework; path = System/Library/Frameworks/FoundationModels.framework; sourceTree = SDKROOT; };
 		E83EA5A42F847FCF00E59DDB /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
@@ -47,6 +58,7 @@
 		E83EA5AF2F84816500E59DDB /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		E83EA5B22F84873600E59DDB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E83EA5BD2F8702B100E59DDB /* add_arrays */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = add_arrays; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8F7755D2FA2C97C00F4E573 /* SDL3.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SDL3.xcframework; path = third_party/SDL3/SDL3.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -68,6 +80,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E83EA5B32F84873600E59DDB /* Foundation.framework in Frameworks */,
+				E8F7755F2FA2C98900F4E573 /* SDL3.xcframework in Frameworks */,
 				E83EA5A72F847FE200E59DDB /* QuartzCore.framework in Frameworks */,
 				E83EA5A92F847FED00E59DDB /* Metal.framework in Frameworks */,
 			);
@@ -86,17 +99,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E83E59092F997E070005283D /* lib */ = {
-			isa = PBXGroup;
-			children = (
-				E83E59082F997E070005283D /* SDL3.framework */,
-			);
-			path = lib;
-			sourceTree = "<group>";
-		};
 		E83EA58E2F83351500E59DDB = {
 			isa = PBXGroup;
 			children = (
+				E8F7755D2FA2C97C00F4E573 /* SDL3.xcframework */,
 				E84925822F9978F200829FC0 /* raymarcher_gpu */,
 				E83EA5BE2F8702B100E59DDB /* add_arrays */,
 				E83EA5A12F847FC700E59DDB /* Frameworks */,
@@ -116,8 +122,6 @@
 		E83EA5A12F847FC700E59DDB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E83E59102FA023E90005283D /* SDL3-3.4.4.dmg */,
-				E83E59092F997E070005283D /* lib */,
 				E83EA5B22F84873600E59DDB /* Foundation.framework */,
 				E83EA5AF2F84816500E59DDB /* CoreFoundation.framework */,
 				E83EA5A82F847FED00E59DDB /* Metal.framework */,
@@ -138,6 +142,7 @@
 				E83EA5932F83351600E59DDB /* Sources */,
 				E83EA5942F83351600E59DDB /* Frameworks */,
 				E83EA5952F83351600E59DDB /* CopyFiles */,
+				E883C9552FA03111000A29C0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -354,10 +359,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XQ75MS283B;
 				ENABLE_HARDENED_RUNTIME = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/lib",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/raymarcher_gpu/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/metal-cpp";
@@ -373,10 +375,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XQ75MS283B;
 				ENABLE_HARDENED_RUNTIME = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/lib",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/raymarcher_gpu/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/metal-cpp";
