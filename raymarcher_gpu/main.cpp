@@ -153,9 +153,11 @@ int main(int argc, const char * argv[]) {
     // ----------------------------------------------------------------------
     // Main Loop.
     // ----------------------------------------------------------------------
+    std::size_t count = 0;
     SDL_Event event;
     bool done = false;
     while (true) {
+        auto start = std::chrono::high_resolution_clock::now();
         // Handle events.
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_EVENT_QUIT) {
@@ -167,14 +169,10 @@ int main(int argc, const char * argv[]) {
         }
 
         // Compute pixels on the GPU.
-        static bool exec = true;
-        if (exec) {
-            exec = false;
-            std::string march_error;
-            if (!marcher.march_rays(output_sz_buf, camera_buf, scene_buf, pixels, march_error)) {
-                std::cerr << "ERROR: failed to march the rays: " << march_error << "\n";
-                return 1;
-            }
+        std::string march_error;
+        if (!marcher.march_rays(output_sz_buf, camera_buf, scene_buf, pixels, march_error)) {
+            std::cerr << "ERROR: failed to march the rays: " << march_error << "\n";
+            return 1;
         }
 
         // Update SDL texture with pixel buffer
@@ -184,6 +182,15 @@ int main(int argc, const char * argv[]) {
         SDL_RenderClear(renderer);
         SDL_RenderTexture(renderer, texture, nullptr, nullptr);
         SDL_RenderPresent(renderer);
+        
+        auto elapsed = std::chrono::high_resolution_clock::now() - start;
+        double fps = 1.0E9 / elapsed.count();
+        
+        if (count % 100 == 0) {
+            std::cout << fps << " FPS\n";
+        }
+        
+        ++count;
     }
 
     // ----------------------------------------------------------------------
