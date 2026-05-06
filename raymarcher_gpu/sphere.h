@@ -10,6 +10,6 @@
 #include "shared.h"
 
 struct Sphere  {
-    FLOAT3 center;
-    FLOAT radius;
+    FLOAT3 center{};
+    FLOAT radius = 0.0f;
 };

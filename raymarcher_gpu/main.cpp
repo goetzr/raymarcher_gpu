@@ -16,8 +16,11 @@
 
 #include "shared.h"
 #include "camera_cpu.h"
-#include "object.h"
-#include "scene.h"
+#include "sphere_cpu.h"
+#include "cube_cpu.h"
+#include "box2d_cpu.h"
+#include "object_cpu.h"
+#include "scene_cpu.h"
 #include "raymarcher.h"
 
 constexpr RectI kOutputSize = {
@@ -102,25 +105,28 @@ int main(int argc, const char * argv[]) {
     // Create the scene to render.
     // NOTE: The camera is facing along the negative z-axis.
     //       If an object is to be visible, its z coordinate must be negative.
-    Object scene_objects[] = {
-        Sphere {
-            FLOAT3 { -15, 0, -30 },
-            5
-        },
-        Cube {
-            FLOAT3 { 0, 0, -30 },
-            10,
-            FLOAT3 { 0, 45, 0 }
-        },
-        Box2D {
-            FLOAT3 { 15, 0, -30 },
-            { 10, 10 },
-            FLOAT3 { 0, 45, 0 }
-        }
-    };
+    Sphere sphere;
+    init(sphere, FLOAT3 { -15, 0, -30 }, 5);
+    Object sphere_obj;
+    init(sphere_obj, sphere);
+    
+    Cube cube;
+    init(cube, FLOAT3 { 0, 0, -30 }, 10, FLOAT3 { 0, 45, 0 });
+    Object cube_obj;
+    init(cube_obj, cube);
+    
+    Box2D box;
+    init(box, FLOAT3 { 15, 0, -30 }, { 10, 10 }, FLOAT3 { 0, 45, 0 });
+    Object box_obj;
+    init(box_obj, box);
+    
+    Object scene_objects[] = { sphere_obj, cube_obj, box_obj };
     size_t num_objs = sizeof(scene_objects) / sizeof(Object);
-    Scene scene;
-    if (!scene.init(scene_objects, num_objs)) {
+    Scene scene {
+        .objects = {},
+        .num_objs = 0
+    };
+    if (!init(scene, scene_objects, num_objs)) {
         std::cerr << "ERROR: failed to initialize the scene to render\n";
         return 1;
     }

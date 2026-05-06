@@ -10,7 +10,7 @@ using namespace metal;
 
 #include "camera.h"
 #include "shared.h"
-#include "scene.h"
+#include "scene_gpu.h"
 
 // A ray that has marched further than this distance is defined to have missed all objects in the scene.
 constant static constexpr float kMaxDist = 200;
@@ -69,7 +69,7 @@ kernel void raymarch_pixel(constant const RectI& output_sz [[buffer(0)]],
         .index = -1,
         .distance = 10'000
     };
-    if (!scene.closest_object(camera.pos, closest_obj)) {
+    if (!closest_object(scene, current_position, closest_obj)) {
         return;
     }
     float ray_len = closest_obj.distance;
@@ -81,7 +81,7 @@ kernel void raymarch_pixel(constant const RectI& output_sz [[buffer(0)]],
     for (int step = 0; step != kMaxSteps && ray_len <= kMaxDist; ++step) {
         current_position = camera.pos + ray_dir * ray_len;
         
-        if (!scene.closest_object(current_position, closest_obj)) {
+        if (!closest_object(scene, current_position, closest_obj)) {
             return;
         }
         

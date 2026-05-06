@@ -20,8 +20,9 @@ enum class ObjectType {
 };
 
 struct Object {
-    ObjectType type;
+    ObjectType type = ObjectType::Unused;
     union {
+        uint8_t unused = 0;
         Sphere sphere;
         Cube cube;
         Box2D box2d;

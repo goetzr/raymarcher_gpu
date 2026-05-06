@@ -29,7 +29,7 @@ void init(Camera& camera, FLOAT3 pos, FLOAT3 rotation,
     camera.fov.horiz = deg2rad(fov_horiz);
     camera.fov.vert = 2 * std::atan(std::tan(camera.fov.horiz * 0.5f) / sensor_aspect_ratio);
     // Adjust the FOV for an aspect ratio mismatch between the sensor and the output raster.
-    adjust_fov(sensor_aspect_ratio, output_aspect_ratio, sensor_fit);
+    adjust_fov(camera, sensor_aspect_ratio, output_aspect_ratio, sensor_fit);
 
     // NOTE: This is unnecessary for a raymarcher. The desired FOV is specified directly.
     // fov_.horiz = 2 * std::atan2(sensor_sz_.width  * kInchesToMm / 2,  focal_len_);
