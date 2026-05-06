@@ -53,23 +53,23 @@ kernel void raymarch_pixel(constant const RectI& output_sz [[buffer(0)]],
     
     // Apply the NDC coordinates to the FOV to get a ray direction vector in camera space.
     // Assume the virtual canvas is 1 unit away from the camera along the z-axis (simplifies tan).
-    float x_cam = x_ndc * tan(camera.fov().horiz * 0.5f);
-    float y_cam = y_ndc * tan(camera.fov().vert  * 0.5f);
+    float x_cam = x_ndc * tan(camera.fov.horiz * 0.5f);
+    float y_cam = y_ndc * tan(camera.fov.vert  * 0.5f);
     float z_cam = -1;
     
     // Normalize the ray direction vector.
     FLOAT3 ray_dir_cam = normalize(FLOAT3 { x_cam, y_cam, z_cam });
     
     // Convert the ray direction vector into world coordinates.
-    FLOAT3 ray_dir = camera.basis() * ray_dir_cam;
+    FLOAT3 ray_dir = camera.basis * ray_dir_cam;
     
     // Use the distance to the closest object as the initial ray length.
-    FLOAT3 current_position = camera.position();
+    FLOAT3 current_position = camera.pos;
     ClosestObject closest_obj = {
         .index = -1,
         .distance = 10'000
     };
-    if (!scene.closest_object(camera.position(), closest_obj)) {
+    if (!scene.closest_object(camera.pos, closest_obj)) {
         return;
     }
     float ray_len = closest_obj.distance;
@@ -79,7 +79,7 @@ kernel void raymarch_pixel(constant const RectI& output_sz [[buffer(0)]],
     
     // March the ray until it hits an object in the scene or misses all objects.
     for (int step = 0; step != kMaxSteps && ray_len <= kMaxDist; ++step) {
-        current_position = camera.position() + ray_dir * ray_len;
+        current_position = camera.pos + ray_dir * ray_len;
         
         if (!scene.closest_object(current_position, closest_obj)) {
             return;
@@ -90,12 +90,12 @@ kernel void raymarch_pixel(constant const RectI& output_sz [[buffer(0)]],
             
             // Determine if the point should be visible by converting it back into camera coordinates
             // and checking it against the near/far clipping planes.
-            CoordTransform world_to_cam = camera.world_to_camera();
+            CoordTransform world_to_cam = camera.world_to_camera;
             FLOAT3 cur_pos_cam = world_to_cam.rotation * current_position + world_to_cam.translation;
             
             // Negate the z coordinate to get the point's distance from the camera.
             float dist_z = -cur_pos_cam.z;
-            if (dist_z >= camera.clip_near() && dist_z <= camera.clip_far()) {
+            if (dist_z >= camera.clip_near && dist_z <= camera.clip_far) {
                 // The position should be visible. Return a color of red.
                 pixel_argb = 0xffff0000;
             }

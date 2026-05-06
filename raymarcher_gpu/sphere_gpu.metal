@@ -1,12 +1,12 @@
 //
-//  sphere.metal
+//  sphere_gpu.metal
 //  raymarcher_gpu
 //
 //  Created by Russ Goetz on 4/20/26.
 //
 
-#include "sphere.h"
+#include "sphere_gpu.h"
 
-FLOAT Sphere::sdf(THREAD_ADDR_SPACE const FLOAT3& p) const constant {
-    return length(p - center_) - radius_;
+FLOAT sdf(constant const Sphere& sphere, thread const FLOAT3& p) {
+    return length(p - sphere.center) - sphere.radius;
 }

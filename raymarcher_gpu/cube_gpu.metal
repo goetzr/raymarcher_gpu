@@ -1,18 +1,18 @@
 //
-//  cube.metal
+//  cube_gpu.metal
 //  raymarcher_gpu
 //
 //  Created by Russ Goetz on 4/20/26.
 //
 
-#include "cube.h"
+#include "cube_gpu.h"
 
-FLOAT Cube::sdf(THREAD_ADDR_SPACE const FLOAT3& p) const constant {
+FLOAT sdf(constant const Cube& cube, thread const FLOAT3& p) {
     // Transform the point from world coordinates to local coordinates.
-    FLOAT3 p2 = world_to_local_.rotation * p + world_to_local_.translation;
+    FLOAT3 p2 = cube.world_to_local.rotation * p + cube.world_to_local.translation;
 
     // 1. Calculate half-extent.
-    FLOAT b = side_len_ * 0.5f;
+    FLOAT b = cube.side_len * 0.5f;
 
     // 2. Component-wise distance to the faces.
     FLOAT dx = abs(p2.x) - b;

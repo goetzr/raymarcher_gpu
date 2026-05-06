@@ -1,22 +1,23 @@
 //
-//  box2d.cpp
+//  box2d_cpu.cpp
 //  raymarcher_gpu
 //
 //  Created by Russ Goetz on 4/15/26.
 //
 
-#include "box2d.h"
+#include "box2d_cpu.h"
 #include "util.h"
 
-Box2D::Box2D(const FLOAT3& center, RectF size, FLOAT3 rotation) noexcept
-        : center_{center}, size_{size}
-{
+void init(Box2D& box, const FLOAT3& center, RectF size, FLOAT3 rotation) noexcept {
+    box.center = center;
+    box.size = size;
+    
     // Calculate the basis vectors from the rotation.
     rotation.x = deg2rad(rotation.x);
     rotation.y = deg2rad(rotation.y);
     rotation.z = deg2rad(rotation.z);
-    basis_ = generate_basis(rotation);
+    box.basis = generate_basis(rotation);
 
     // Calculate the world to local matrix from the basis vectors and the center position.
-    world_to_local_ = inverse_coord_transform(basis_, center_);
+    box.world_to_local = inverse_coord_transform(box.basis, box.center);
 }

@@ -15,7 +15,7 @@
 #include <SDL3/SDL.h>
 
 #include "shared.h"
-#include "camera.h"
+#include "camera_cpu.h"
 #include "object.h"
 #include "scene.h"
 #include "raymarcher.h"
@@ -93,11 +93,11 @@ int main(int argc, const char * argv[]) {
     FLOAT sensor_aspect_ratio = 3.0 / 2;
     FLOAT clip_near = 0.1;
     FLOAT clip_far = 100;
-    Camera camera {
-        cam_pos, cam_rot,
-        fov_horiz, sensor_aspect_ratio, kOutputAspectRatio, SensorFit::Overscan,
-        clip_near, clip_far
-    };
+    Camera camera;
+    init(camera,
+         cam_pos, cam_rot,
+         fov_horiz, sensor_aspect_ratio, kOutputAspectRatio, SensorFit::Overscan,
+         clip_near, clip_far);
     
     // Create the scene to render.
     // NOTE: The camera is facing along the negative z-axis.

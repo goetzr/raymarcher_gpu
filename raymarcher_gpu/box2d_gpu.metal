@@ -1,19 +1,19 @@
 //
-//  box2d.metal
+//  box2d_gpu.metal
 //  raymarcher_gpu
 //
 //  Created by Russ Goetz on 4/20/26.
 //
 
-#include "box2d.h"
+#include "box2d_gpu.h"
 #include "shared.h"
 
-FLOAT Box2D::sdf(THREAD_ADDR_SPACE const FLOAT3& p) const constant {
-    FLOAT3 p2 = world_to_local_.rotation * p + world_to_local_.translation;
+FLOAT sdf(constant const Box2D& box, thread const FLOAT3& p) {
+    FLOAT3 p2 = box.world_to_local.rotation * p + box.world_to_local.translation;
 
     // 1. Calculate 2D half-extents.
-    FLOAT bx = size_.width * 0.5f;
-    FLOAT by = size_.height * 0.5f;
+    FLOAT bx = box.size.width * 0.5f;
+    FLOAT by = box.size.height * 0.5f;
 
     // 2. Component-wise distance in the 2D plane (XY).
     FLOAT dx = abs(p2.x) - bx;

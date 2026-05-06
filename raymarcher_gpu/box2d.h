@@ -9,17 +9,12 @@
 
 #include "shared.h"
 
-class Box2D  {
-public:
-    Box2D(THREAD_ADDR_SPACE const FLOAT3& center, RectF size, FLOAT3 rotation) NOEXCEPT;
-    FLOAT sdf(THREAD_ADDR_SPACE const FLOAT3& p) const CONST_ADDR_SPACE;
-
-private:
+struct Box2D  {
     // The box's center, in world coordinates.
-    FLOAT3 center_;
-    RectF size_;
+    FLOAT3 center{};
+    RectF size{};
     // The box's basis vectors, in world coordinates.
-    FLOAT3x3 basis_{};
+    FLOAT3x3 basis{};
     // The 4x4 world to local matrix.
-    CoordTransform world_to_local_{};
+    CoordTransform world_to_local{};
 };
